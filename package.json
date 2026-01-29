@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/Rikatsu17/invoicefund/issues"
   },
-  "homepage": "https://github.com/Rikatsu17/invoicefund#readme"
+  "homepage": "https://github.com/Rikatsu17/invoicefund#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.22.0"
+  }
 }

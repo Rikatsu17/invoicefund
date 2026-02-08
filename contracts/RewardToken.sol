@@ -12,3 +12,4 @@ contract RewardToken is ERC20, Ownable {
         _mint(to, amount);
     }
 }
+

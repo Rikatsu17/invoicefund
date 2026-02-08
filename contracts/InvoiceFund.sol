@@ -9,7 +9,7 @@ contract InvoiceFund is ReentrancyGuard {
         string title;
         address owner;
         uint256 goalWei;
-        uint256 deadline; // unix timestamp
+        uint256 deadline; 
         uint256 raisedWei;
         bool finalized;
     }
@@ -17,11 +17,9 @@ contract InvoiceFund is ReentrancyGuard {
     RewardToken public rewardToken;
 
     uint256 public constant REWARD_RATE = 100; 
-    // 1 ETH (1e18 wei) -> 100 INV (with 18 decimals)
 
     Campaign[] private campaigns;
 
-    // campaignId => contributor => amountWei
     mapping(uint256 => mapping(address => uint256)) public contributions;
 
     event CampaignCreated(uint256 indexed campaignId, address indexed owner, string title, uint256 goalWei, uint256 deadline);
@@ -69,8 +67,6 @@ contract InvoiceFund is ReentrancyGuard {
         contributions[campaignId][msg.sender] += msg.value;
         c.raisedWei += msg.value;
 
-        // rewardAmount = msg.value * REWARD_RATE
-        // msg.value is in wei; token has 18 decimals, so it's consistent
         uint256 rewardAmount = msg.value * REWARD_RATE;
         rewardToken.mint(msg.sender, rewardAmount);
 
@@ -88,7 +84,6 @@ contract InvoiceFund is ReentrancyGuard {
         emit Finalized(campaignId);
     }
 
-    // --- Read helpers for frontend ---
 
     function getCampaignCount() external view returns (uint256) {
         return campaigns.length;

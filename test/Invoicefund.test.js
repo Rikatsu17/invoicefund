@@ -78,4 +78,79 @@ it("Should accept contributions and track raised amount", async function () {
       invoiceFund.connect(contributor1).contribute(999, { value: ethers.parseEther("0.1") })
     ).to.be.reverted;
   });
+
+  it("Should not allow finalize before deadline", async function () {
+  const { invoiceFund } = await deployFixture();
+
+  await (await invoiceFund.createCampaign(
+    "Invoice #1",
+    ethers.parseEther("1"),
+    3600
+  )).wait();
+
+  await expect(
+    invoiceFund.finalize(0)
+  ).to.be.reverted;
+});
+
+it("Should allow finalize after deadline", async function () {
+  const { invoiceFund } = await deployFixture();
+
+  await (await invoiceFund.createCampaign(
+    "Invoice #1",
+    ethers.parseEther("1"),
+    3600
+  )).wait();
+
+  await ethers.provider.send("evm_increaseTime", [3601]);
+  await ethers.provider.send("evm_mine");
+
+  await expect(
+    invoiceFund.finalize(0)
+  ).to.not.be.reverted;
+
+  const c = await invoiceFund.getCampaign(0);
+  expect(c[5]).to.equal(true);
+});
+
+it("Should not allow finalize twice", async function () {
+  const { invoiceFund } = await deployFixture();
+
+  await (await invoiceFund.createCampaign(
+    "Invoice #1",
+    ethers.parseEther("1"),
+    3600
+  )).wait();
+
+  await ethers.provider.send("evm_increaseTime", [3601]);
+  await ethers.provider.send("evm_mine");
+
+  await (await invoiceFund.finalize(0)).wait();
+
+  await expect(
+    invoiceFund.finalize(0)
+  ).to.be.reverted;
+});
+
+it("Should not allow contribute after finalize", async function () {
+  const { invoiceFund, contributor1 } = await deployFixture();
+
+  await (await invoiceFund.createCampaign(
+    "Invoice #1",
+    ethers.parseEther("1"),
+    3600
+  )).wait();
+
+  await ethers.provider.send("evm_increaseTime", [3601]);
+  await ethers.provider.send("evm_mine");
+
+  await (await invoiceFund.finalize(0)).wait();
+
+  await expect(
+    invoiceFund.connect(contributor1).contribute(0, {
+      value: ethers.parseEther("0.1")
+    })
+  ).to.be.reverted;
+});
+
 });

@@ -811,3 +811,4 @@ el("contribBtn").onclick = async () => {
     setStatus("Contribution failed");
   }
 };
+

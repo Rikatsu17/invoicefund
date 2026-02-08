@@ -8,47 +8,78 @@
   <link rel="icon" type="image/png" href="../material/favicon.jfif" />
 </head>
 <body>
-  <h1>InvoiceFund (Working Capital Financing)</h1>
 
-  <div class="card">
-    <button id="connectBtn">Connect MetaMask</button>
-    <p>Address: <code id="addr">-</code></p>
-    <p>Network: <code id="net">-</code></p>
-    <p>Status: <code id="status">Idle</code></p>
-  </div>
+ <header class="header">
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1 class="brand">InvoiceFund</h1>
+        <p class="subtitle">Decentralized Working Capital Financing</p>
+      </div>
 
-  <div class="card">
-    <h2>Balances</h2>
-    <p>ETH: <code id="ethBal">-</code></p>
-    <p>INV: <code id="invBal">-</code></p>
-  </div>
+      <nav class="nav">
+                <a class="navlink" href="./home.html">Home</a>
 
-  <div class="card">
-    <h2>Create Campaign</h2>
-    <input id="title" placeholder="Title (e.g., Invoice #1024 - Web Design)" />
-    <div class="row">
-      <input id="goalEth" placeholder="Goal (ETH), e.g. 1.5" />
-      <input id="durationSec" placeholder="Duration (seconds), e.g. 3600" />
+        <a class="navlink" href="./index.html">DApp</a>
+        <a class="navlink" href="./about.html">About</a>
+      </nav>
     </div>
-    <button id="createBtn">Create</button>
   </div>
+</header>
 
-  <div class="card">
-    <h2>Campaigns</h2>
-    <button id="loadBtn">Load campaigns</button>
-    <p>Total campaigns: <code id="count">0</code></p>
-    <div id="campaigns"></div>
-  </div>
 
-  <div class="card">
-    <h2>Contribute</h2>
-    <div class="row">
-      <input id="campId" placeholder="Campaign ID (e.g., 0)" />
-      <input id="amountEth" placeholder="Amount (ETH), e.g. 0.1" />
-    </div>
-    <button id="contribBtn">Contribute</button>
-  </div>
+  <main class="container">
+
+    <section class="card">
+      <button id="connectBtn">Connect MetaMask</button>
+      <p>Address: <code id="addr">-</code></p>
+      <p>Network: <code id="net">-</code></p>
+      <p>Status: <code id="status">Idle</code></p>
+    </section>
+
+    <section class="card">
+      <h2>Balances</h2>
+      <p>ETH: <code id="ethBal">-</code></p>
+      <p>INV: <code id="invBal">-</code></p>
+    </section>
+
+    <section class="card">
+      <h2>Create Campaign</h2>
+      <input id="title" placeholder="Invoice #1024 – Web Design" />
+      <div class="row">
+        <input id="goalEth" placeholder="Goal (ETH)" />
+        <input id="durationSec" placeholder="Duration (seconds)" />
+      </div>
+      <button id="createBtn">Create Campaign</button>
+    </section>
+
+    <section class="card">
+      <h2>Campaigns</h2>
+      <button id="loadBtn">Load Campaigns</button>
+      <p>Total campaigns: <code id="count">0</code></p>
+      <div id="campaigns"></div>
+    </section>
+
+    <section class="card">
+      <h2>Contribute</h2>
+      <div class="row">
+        <input id="campId" placeholder="Campaign ID" />
+        <input id="amountEth" placeholder="Amount (ETH)" />
+      </div>
+      <button id="contribBtn">Contribute</button>
+    </section>
+
+    
+  </main>
+
+  <footer class="footer">
+    <p>
+      Made by Daniyal, Bibifatima and Ataniyaz for blockchain final project. <br>
+      Ethereum Sepolia Testnet
+    </p>
+  </footer>
 
   <script type="module" src="./app.js"></script>
 </body>
 </html>
+  

@@ -15,7 +15,7 @@
   <h1>InvoiceFund — Decentralized Crowdfunding DApp</h1>
 
   <h1>Project Overview</h1> So, basically, InvoiceFund is a decentralized crowdfunding platform designed to provide early liquidity to businesses awaiting invoice payments. Instead of relying on banks or intermediaries, funding is raised through smart contracts. Participants receive ERC-20 reward tokens, which demonstrate proportional participation and accountability on the blockchain. The system operates entirely on the Ethereum Sepolia testnet using MetaMask.<br> Aand This project was developed as a final project and operates exclusively on an Ethereum test network using free test tokens.<br> This project was developed as a blockchain final project<br>
-  
+
   <h1> Purpose of the Project</h1>
   
   The main objective of this project is to demonstrate practical knowledge of: <br> Using Solidity for smart contracts<BR>
@@ -54,6 +54,7 @@ Finalizing campaigns after the deadline<br>
 Minting reward tokens for contributors<br>
 
 ### 2. RewardToken (ERC-20)
+
 Custom ERC-20 token(inv)<br>
 Minted automatically during campaign participation<br>
 Has no real monetary value<br>
@@ -96,9 +97,8 @@ MetaMask provides the connection between the web application and the blockchain.
 After the user connects MetaMask, the application initializes an app <b>BrowserProvider</b>
 and obtains a signer representing the active wallet account.
 Smart contracts are accessed using their deployed addresses and ABI files.
-</p>
-
-<p>
+</p> 
+ <p>
 Read-only operations (loading campaigns, checking balances) are performed via the provider,
 while state-changing operations (creating campaigns, contributing ETH, finalizing campaigns)
 are executed as blockchain transactions and require user confirmation through MetaMask.
@@ -148,7 +148,25 @@ npx hardhat run scripts/deploy.js --network sepolia
 
 
 <h1>reward formula </h1>
-<b>Reward = contributionWei × REWARD_RATE / 1e18</b>
+Reward tokens are minted proportionally to the contributed ETH using the following formula:<br>
+<b>Reward = contributionWei × REWARD_RATE / 1e18</b><br>
+contributionWei — amount of ETH contributed<br>
+
+REWARD_RATE — fixed reward multiplier<br>
+
+1e18 — normalization factor for decimals<br>
+
+The InvoiceFund contract then calls the mint() function on the RewardToken contract.<br>
+<pre>
+    function mint(address to, uint256 amount) external onlyOwner {
+        _mint(to, amount);
+ </pre>
+ What are Reward Tokens in InvoiceFund?><br>
+
+In the InvoiceFund DApp, reward tokens (INV) are custom ERC-20 tokens that are automatically minted when a user contributes ETH to a crowdfunding campaign.
+
+These tokens do not represent real money or financial profit.
+They exist purely for educational and demonstration purposes and are used to illustrate how tokenization works in decentralized applications.
 <h1>Testing</h1>
 Automated unit tests are implemented using Hardhat to verify contract deployment, creating commpaigns, contribution logic, reward token minting and etc.
 To run it write in terminal:<br>
